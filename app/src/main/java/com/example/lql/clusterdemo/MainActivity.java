@@ -11,6 +11,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -37,7 +40,7 @@ import java.util.Map;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements  EasyPermissions.PermissionCallbacks
-        ,ClusterMarkerOverlay.ClusterRender ,AMap.OnMapLoadedListener ,ClusterClickListener {
+        ,ClusterMarkerOverlay.ClusterRender ,AMap.OnMapLoadedListener ,ClusterClickListener ,View.OnClickListener{
 
     final int RC_CAMERA_AND_WIFI=0x1;
 
@@ -50,11 +53,42 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
     private Map<Integer, Drawable> mBackDrawAbles = new HashMap<Integer, Drawable>();
 
     private ClusterOverlay mClusterOverlay;
+    private android.widget.TextView tv1;
+    private android.widget.TextView tv2;
+    private android.widget.TextView tv3;
+    private MapView testmap;
+    private android.widget.TextView bottomtv1;
+    private android.widget.TextView bottomtv2;
+    private android.widget.TextView bottomtv3;
+    private android.widget.TextView bottomtv4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
+        initView(savedInstanceState);
+    }
+
+    private void initView(Bundle savedInstanceState) {
+        this.bottomtv4 = (TextView) findViewById(R.id.bottom_tv4);
+        this.bottomtv3 = (TextView) findViewById(R.id.bottom_tv3);
+        this.bottomtv2 = (TextView) findViewById(R.id.bottom_tv2);
+        this.bottomtv1 = (TextView) findViewById(R.id.bottom_tv1);
+
+        this.tv3 = (TextView) findViewById(R.id.tv3);
+        this.tv2 = (TextView) findViewById(R.id.tv2);
+        this.tv1 = (TextView) findViewById(R.id.tv1);
+        bottomtv4.setOnClickListener(this);
+        bottomtv3.setOnClickListener(this);
+        bottomtv2.setOnClickListener(this);
+        bottomtv1.setOnClickListener(this);
+
+        tv3.setOnClickListener(this);
+        tv2.setOnClickListener(this);
+        tv1.setOnClickListener(this);
+
         mapView= (MapView) findViewById(R.id.test_map);
         mapView.onCreate(savedInstanceState);
         aMap=mapView.getMap();
@@ -70,6 +104,33 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
             setMapCustomStyleFile(MainActivity.this);
         }
         chackPermission();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.bottom_tv4:
+                Toast.makeText(this, "我的", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.bottom_tv3:
+                Toast.makeText(this, "日志", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.bottom_tv2:
+                Toast.makeText(this, "计划", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.bottom_tv1:
+                Toast.makeText(this, "巡查", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv3:
+                Toast.makeText(this, "违章治理", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv2:
+                Toast.makeText(this, "控源治污", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv1:
+                Toast.makeText(this, "区域", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     @Override
@@ -134,24 +195,24 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
 
     }
 
-    /**
-     * 添加点
-     */
-    private void addPoint(){
-        //点击可以动态添加点
-        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                double lat = Math.random() + 39.474923;
-                double lon = Math.random() + 116.027116;
-                LatLng latLng1 = new LatLng(lat, lon, false);
-                RegionItem regionItem = new RegionItem(latLng1,
-                        "test");
-                mClusterOverlay.addClusterItem(regionItem);
-            }
-        });
-    }
-
+//    /**
+//     * 添加点
+//     */
+//    private void addPoint(){
+//        //点击可以动态添加点
+//        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                double lat = Math.random() + 39.474923;
+//                double lon = Math.random() + 116.027116;
+//                LatLng latLng1 = new LatLng(lat, lon, false);
+//                RegionItem regionItem = new RegionItem(latLng1,
+//                        "test");
+//                mClusterOverlay.addClusterItem(regionItem);
+//            }
+//        });
+//    }
+//
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -479,5 +540,6 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
+
 
 }

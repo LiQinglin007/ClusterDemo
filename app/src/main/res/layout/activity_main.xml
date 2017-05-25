@@ -3,13 +3,138 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lql.clusterdemo.MainActivity">
 
+    <TextView
+        android:paddingTop="@dimen/px_10"
+        android:paddingBottom="@dimen/px_10"
+        android:layout_width="match_parent"
+        android:text="x月x日xxx领导来视察，请提前准备"
+        android:textColor="@color/color_fff"
+        android:gravity="center_horizontal"
+        android:background="@color/color_000"
+        android:layout_height="@dimen/px_50"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_60">
+
+        <TextView
+            android:id="@+id/tv1"
+            android:text="区域"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            ></View>
+
+        <TextView
+            android:id="@+id/tv2"
+            android:text="控源治污"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            ></View>
+        <TextView
+            android:id="@+id/tv3"
+            android:text="违章治理"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:background="#e0e0e0"
+        ></View>
+
+
     <com.amap.api.maps.MapView
         android:id="@+id/test_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="1"
+        android:layout_height="0dp">
     </com.amap.api.maps.MapView>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_1"
+        android:background="#e0e0e0"
+        ></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/px_90"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bottom_tv1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="巡查"/>
+
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            ></View>
+
+        <TextView
+            android:id="@+id/bottom_tv2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="计划"/>
+
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            ></View>
+
+        <TextView
+            android:id="@+id/bottom_tv3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="日志"/>
+
+        <View
+            android:layout_width="@dimen/px_1"
+            android:layout_height="match_parent"
+            android:background="#e0e0e0"
+            ></View>
+
+        <TextView
+            android:id="@+id/bottom_tv4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="我的"/>
+    </LinearLayout>
+
 </LinearLayout>
