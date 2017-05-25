@@ -25,6 +25,8 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps.model.Polyline;
+import com.amap.api.maps.model.PolylineOptions;
 import com.amap.api.maps.utils.overlay.ClusterMarkerOverlay;
 import com.example.lql.clusterdemo.demo.RegionItem;
 
@@ -192,6 +194,34 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
             aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
             aMap.setOnMapLoadedListener(this);
 //            addPoint();
+        addLine();
+    }
+
+
+    private void addLine(){
+
+        List<LatLng> latLngs = new ArrayList<LatLng>();
+        latLngs.add(new LatLng(31.2593572798,121.1443197727));
+        latLngs.add(new LatLng(31.2583300886,121.1432147026));
+        latLngs.add(new LatLng(31.2570827699,121.1426997185));
+        latLngs.add(new LatLng(31.2553309931,121.1422920227));
+
+        latLngs.add(new LatLng(31.2531481053,121.1407470703));
+        latLngs.add(new LatLng(31.2518823742,121.1393952370));
+        latLngs.add(new LatLng(31.2512036418,121.1384296417));
+        latLngs.add(new LatLng(31.2489656247,121.1373138428));
+
+        latLngs.add(new LatLng(31.2470577650,121.1367774010));
+        latLngs.add(new LatLng(31.2460671303,121.1362838745));
+        latLngs.add(new LatLng(31.2428016314,121.1337089539));
+        latLngs.add(new LatLng(31.2345823478,121.1267781258));
+
+        latLngs.add(new LatLng(31.2303623484,121.1230659485));
+        latLngs.add(new LatLng(31.2248026704,121.1222076416));
+
+
+        Polyline polyline = aMap.addPolyline(new PolylineOptions().
+                addAll(latLngs).width(10).color(Color.argb(255, 255 ,0 ,0)));
 
     }
 
