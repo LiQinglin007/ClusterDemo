@@ -342,7 +342,6 @@ public class ClusterOverlay implements AMap.OnCameraChangeListener,
      * 获取每个聚合点的绘制样式
      */
     private BitmapDescriptor getBitmapDes(Cluster mCluster) {
-        Cluster mCluster1 = mCluster;
         BitmapDescriptor bitmapDescriptor;
         if(mCluster.getClusterCount() > 1){//当数量》1设置个数
             bitmapDescriptor = mLruCache.get(mCluster.getClusterCount());
