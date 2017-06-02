@@ -12,6 +12,14 @@ import java.util.List;
 
 public class Cluster {
 
+    @Override
+    public String toString() {
+        return "Cluster{" +
+                "mLatLng=" + mLatLng +
+                ", mClusterItems=" + mClusterItems +
+                ", mMarker=" + mMarker +
+                '}';
+    }
 
     private LatLng mLatLng;
     private List<ClusterItem> mClusterItems;

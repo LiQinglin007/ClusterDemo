@@ -461,7 +461,6 @@ public class ClusterOverlay implements AMap.OnCameraChangeListener,
                 case 1:
                     ClusterItem item = (ClusterItem) message.obj;
                     mClusterItems.add(item);
-                    Log.e("###","添加单个聚合点"+((RegionItem)item).getTitle());
                     calculateSingleCluster(item);
                     break;
             }

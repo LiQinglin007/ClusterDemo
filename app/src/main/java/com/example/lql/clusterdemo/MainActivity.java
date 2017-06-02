@@ -11,9 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -42,7 +40,7 @@ import java.util.Map;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements  EasyPermissions.PermissionCallbacks
-        ,ClusterMarkerOverlay.ClusterRender ,AMap.OnMapLoadedListener ,ClusterClickListener ,View.OnClickListener{
+        ,ClusterMarkerOverlay.ClusterRender ,AMap.OnMapLoadedListener ,ClusterClickListener {
 
     final int RC_CAMERA_AND_WIFI=0x1;
 
@@ -55,14 +53,8 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
     private Map<Integer, Drawable> mBackDrawAbles = new HashMap<Integer, Drawable>();
 
     private ClusterOverlay mClusterOverlay;
-    private android.widget.TextView tv1;
-    private android.widget.TextView tv2;
-    private android.widget.TextView tv3;
     private MapView testmap;
-    private android.widget.TextView bottomtv1;
-    private android.widget.TextView bottomtv2;
-    private android.widget.TextView bottomtv3;
-    private android.widget.TextView bottomtv4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,22 +66,6 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
     }
 
     private void initView(Bundle savedInstanceState) {
-        this.bottomtv4 = (TextView) findViewById(R.id.bottom_tv4);
-        this.bottomtv3 = (TextView) findViewById(R.id.bottom_tv3);
-        this.bottomtv2 = (TextView) findViewById(R.id.bottom_tv2);
-        this.bottomtv1 = (TextView) findViewById(R.id.bottom_tv1);
-
-        this.tv3 = (TextView) findViewById(R.id.tv3);
-        this.tv2 = (TextView) findViewById(R.id.tv2);
-        this.tv1 = (TextView) findViewById(R.id.tv1);
-        bottomtv4.setOnClickListener(this);
-        bottomtv3.setOnClickListener(this);
-        bottomtv2.setOnClickListener(this);
-        bottomtv1.setOnClickListener(this);
-
-        tv3.setOnClickListener(this);
-        tv2.setOnClickListener(this);
-        tv1.setOnClickListener(this);
 
         mapView= (MapView) findViewById(R.id.test_map);
         mapView.onCreate(savedInstanceState);
@@ -108,32 +84,7 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
         chackPermission();
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.bottom_tv4:
-                Toast.makeText(this, "我的", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.bottom_tv3:
-                Toast.makeText(this, "日志", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.bottom_tv2:
-                Toast.makeText(this, "计划", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.bottom_tv1:
-                Toast.makeText(this, "巡查", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.tv3:
-                Toast.makeText(this, "违章治理", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.tv2:
-                Toast.makeText(this, "控源治污", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.tv1:
-                Toast.makeText(this, "区域", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -194,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
             aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
             aMap.setOnMapLoadedListener(this);
 //            addPoint();
-        addLine();
+            addLine();
     }
 
 
@@ -555,12 +506,18 @@ public class MainActivity extends AppCompatActivity implements  EasyPermissions.
 
     @Override
     public void onClick(Marker marker, List<ClusterItem> clusterItems) {
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (ClusterItem clusterItem : clusterItems) {
-            builder.include(clusterItem.getPosition());
+        if(clusterItems.size()==1){
+            RegionItem regionItem=(RegionItem)clusterItems.get(0);
+            Toast.makeText(this, "点击的是"+regionItem.getTitle(), Toast.LENGTH_SHORT).show();
+        }else{
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (ClusterItem clusterItem : clusterItems) {
+                builder.include(clusterItem.getPosition());
+            }
+            LatLngBounds latLngBounds = builder.build();
+            aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 0));
         }
-        LatLngBounds latLngBounds = builder.build();
-        aMap.animateCamera(CameraUpdateFactory.newLatLngBounds(latLngBounds, 0));
+
     }
 
     /**
